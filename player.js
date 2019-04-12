@@ -28,7 +28,7 @@ function drawNewUi (allHTMLAudioElementsArr, newClassForNewUIAudioStr, putNewUIT
         let k = i + 1; 
         setTimeout(() => {
             let  pathToAudio = allHTMLAudioElementsArr[i].currentSrc;
-            newLi.innerHTML = '▶ ' + k + '. ' + pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ');
+            newLi.innerHTML = '▶ ' + k + '. ' + decodeURIComponent(pathToAudio.match(/[%-\.\w]*$/ig).join('')).replace(/\.(mp3|ogg)$/ig, '');
 
             let upperFirstLetter  = newLi.innerHTML.match(/[a-z]/i).join('').toUpperCase();
             newLi.innerHTML = newLi.innerHTML.replace(/[a-z]/i, upperFirstLetter);
@@ -249,7 +249,8 @@ function namingProgressBarEqualCurrentAudioSrc (putAudioLowerCaseNameTo, allHTML
     setTimeout(() => {
         let audioLowerCaseNameContainer = document.querySelector(putAudioLowerCaseNameTo);
         let  pathToAudio = allHTMLAudioElementsArr[indexOfAudio].currentSrc;
-        audioLowerCaseNameContainer.innerHTML = pathToAudio.match(/[%-\.\w]*$/ig).join('').replace(/mp3|ogg|[^a-z]+/ig, ' ').toLowerCase();
+        
+        audioLowerCaseNameContainer.innerHTML = decodeURIComponent(pathToAudio.match(/[%-\.\w]*$/ig).join('')).replace(/\.(mp3|ogg)$/ig, '').toLowerCase();
         audioLowerCaseNameContainer.innerHTML.length > 50 && (audioLowerCaseNameContainer.innerHTML = audioLowerCaseNameContainer.innerHTML.slice(0, 25) + ' ...');
     }, 1)
 }
